@@ -1,0 +1,12 @@
+INPUT
+first line
+● an integer M (1 ≤M≤ 10^9) – the maximum number of pizza slices to order
+● an integer N (1 ≤N≤ 10^5 ) – the number of dierent types of pizza
+second line  
+● 1 ≤ S0 ≤ S1 ≤ … ≤ SN-1 <= M - the number of slices in each type of pizza, in non-decreasing order
+OUTPUT
+first line
+● a single integer K (0 ≤ K ≤ N) – the number of different types of pizza to order.
+second line
+● K numbers – the types of pizza to order (the types of pizza are numbered from 0 to N-1 in the order they are listed in the input).
+The total number of slices in the ordered pizzas must be less than or equal to M.
