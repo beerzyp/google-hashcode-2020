@@ -9,6 +9,9 @@ libsUsed = set()
 
 def score_lib(lib, scores):
     score = 0
+    if lib['id'] in libsUsed:
+        return 0
+
     for book in lib['listBooks']:
         if book in booksUsed:
             continue
@@ -29,6 +32,10 @@ def greedy_max_score(all_libraries, max_days, scores):
     days = 0
     next_lib = True
     final_lib = []
+    used_lib = []
+    nonused_lib = []
+    nonused_lib = all_libraries.copy()
+
     while next_lib:
         sorted_libraries[0]["listBooks"] = remove_extra_books(sorted_libraries[0])
         final_lib.append(sorted_libraries[0])
@@ -47,7 +54,11 @@ def greedy_max_score(all_libraries, max_days, scores):
         for lib in all_libraries:
             lib["score"] = score_lib(lib,scores)
 
-        sorted_libraries = sorted(all_libraries, key=operator.itemgetter('score','signDays'), reverse = True)
+        used_lib.append(sorted_libraries[0])
+        nonused_lib.pop(0)
+
+        sorted_libraries = sorted(nonused_lib, key=operator.itemgetter('score','signDays'), reverse = True)
+        sorted_libraries += used_lib
 
     #print(final_lib)
     return final_lib
@@ -60,10 +71,12 @@ def createOutputFile(allLibraries):
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
 
+    sorted_libraries = sorted(allLibraries, key=operator.itemgetter('signDays'), reverse = True)
+
     #file = open("a_example_out.txt", "w")
-    file = open("b_read_on_out.txt", "w")
+    #file = open("b_read_on_out.txt", "w")
     #file = open("c_incunabula_out.txt", "w")
-    #file = open("d_tough_choices_out.txt", "w")
+    file = open("d_tough_choices_out.txt", "w")
     #file = open("e_so_many_books_out.txt", "w")
     #file = open("f_libraries_of_the_world_out.txt", "w")
 
@@ -77,9 +90,9 @@ def createOutputFile(allLibraries):
 
 def main():
     #infile = open("a_example.txt", "r")
-    infile = open("b_read_on.txt", "r")
+    #infile = open("b_read_on.txt", "r")
     #infile = open("c_incunabula.txt", "r")
-    #infile = open("d_tough_choices.txt", "r")
+    infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
 
