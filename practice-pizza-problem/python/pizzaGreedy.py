@@ -1,4 +1,4 @@
-from operator import itemgetter
+import operator
 import copy
 import itertools
 import sys
@@ -12,7 +12,8 @@ def score_lib(lib, scores):
     return score
 
 def greedy_max_score(all_libraries, max_days):
-    sorted_libraries = sorted(all_libraries, key=itemgetter('score'), reverse = True)
+
+    sorted_libraries = sorted(all_libraries, key=operator.itemgetter('score','signDays'), reverse = True)
     i = 0
     days = 0
     next_lib = True
@@ -23,7 +24,7 @@ def greedy_max_score(all_libraries, max_days):
         if days > max_days or (i+1) >= len(sorted_libraries):
             next_lib = False   
         i += 1
-    print(final_lib)
+    #print(final_lib)
     return final_lib
 
 def createOutputFile(allLibraries):
@@ -44,9 +45,9 @@ def createOutputFile(allLibraries):
         file.write("\n")
 
 def main():
-    infile = open("a_example.txt", "r")
+    #infile = open("a_example.txt", "r")
     #infile = open("b_read_on.txt", "r")
-    #infile = open("c_incunabula.txt", "r")
+    infile = open("c_incunabula.txt", "r")
     #infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
@@ -71,7 +72,7 @@ def main():
         score = score_lib(library, scores)
         library['score'] = score
         allLibraries.append(library)
-    orderingSignUp(allLibraries)
+    sortedLibraries = orderingSignUp(allLibraries) # sorts by signUpDays and BooksPerDay
 
     #Pedro
     finalLibs = greedy_max_score(allLibraries, numDays)
@@ -79,7 +80,8 @@ def main():
 
 def orderingSignUp(allLibraries):
     #sorting by longest signup period
-    sortedLibraries = sorted(allLibraries, key=itemgetter('signDays'), reverse=True)
-       
+    sortedLibraries = sorted(allLibraries, key=operator.itemgetter('signDays','booksPerDay'), reverse=True)
+    return sortedLibraries
+
 if __name__ == '__main__':
     main()
