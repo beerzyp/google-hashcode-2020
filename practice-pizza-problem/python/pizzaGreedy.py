@@ -1,4 +1,4 @@
-from operator import itemgetter
+import operator
 import copy
 import itertools
 import sys
@@ -12,7 +12,7 @@ def score_lib(lib, scores):
     return score
 
 def greedy_max_score(all_libraries, max_days):
-    sorted_libraries = sorted(all_libraries, key=itemgetter('score'), reversed = True)
+    sorted_libraries = sorted(all_libraries, key=operator.itemgetter('score'), reversed = True)
     i = 0
     days = 0
     next_lib = True
@@ -23,7 +23,7 @@ def greedy_max_score(all_libraries, max_days):
         if days > max_days:
             next_lib = False   
         i += 1
-    print(final_lib)
+    #print(final_lib)
     return final_lib
 
 def createOutputFile(allLibraries):
@@ -34,20 +34,19 @@ def createOutputFile(allLibraries):
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
 
-    try:
-        file = open("a_example.txt", "w")
-        file.write(str(len(allLibraries)) + "\n")
-        for lib in allLibraries:
-            file.write(str(lib['id']) + " " + str(len(lib['books'])) + "\n")
-            for book in lib['books']:
-                file.write(str(book))
-                file.write(" ")
-            file.write("\n")
+    file = open("a_example.txt", "w")
+    file.write(str(len(allLibraries)) + "\n")
+    for lib in allLibraries:
+        file.write(str(lib['id']) + " " + str(len(lib['books'])) + "\n")
+        for book in lib['books']:
+            file.write(str(book))
+            file.write(" ")
+        file.write("\n")
 
 def main():
-    infile = open("a_example.txt", "r")
+    #infile = open("a_example.txt", "r")
     #infile = open("b_read_on.txt", "r")
-    #infile = open("c_incunabula.txt", "r")
+    infile = open("c_incunabula.txt", "r")
     #infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
@@ -72,12 +71,13 @@ def main():
         score = score_lib(library, scores)
         library['score'] = score
         allLibraries.append(library)
-    orderingSignUp(allLibraries)
+    sortedLibraries = orderingSignUp(allLibraries) # sorts by signUpDays and BooksPerDay
 
 
 def orderingSignUp(allLibraries):
     #sorting by longest signup period
-    sortedLibraries = sorted(allLibraries, key=itemgetter('signDays'), reverse=True)
+    sortedLibraries = sorted(allLibraries, key=operator.itemgetter('signDays','booksPerDay'), reverse=True)
+    return sortedLibraries
 
 
 
