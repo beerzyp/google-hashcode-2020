@@ -28,14 +28,20 @@ def greedy_max_score(all_libraries, max_days):
     return final_lib
 
 def createOutputFile(allLibraries):
-    infile = open("a_example.txt", "r")
+    #infile = open("a_example.txt", "r")
     #infile = open("b_read_on.txt", "r")
     #infile = open("c_incunabula.txt", "r")
     #infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
 
-    file = open("a_example_out.txt", "w")
+    #file = open("a_example_out.txt", "w")
+    #file = open("b_read_on.txt", "w")
+    #file = open("c_incunabula_out.txt", "w")
+    #file = open("d_tough_choices_out.txt", "w")
+    #file = open("e_so_many_books_out.txt", "w")
+    file = open("f_libraries_of_the_world_out.txt", "w")
+
     file.write(str(len(allLibraries)) + "\n")
     for lib in allLibraries:
         file.write(str(lib['id']) + " " + str(len(lib['listBooks'])) + "\n")
@@ -47,10 +53,10 @@ def createOutputFile(allLibraries):
 def main():
     #infile = open("a_example.txt", "r")
     #infile = open("b_read_on.txt", "r")
-    infile = open("c_incunabula.txt", "r")
+    #infile = open("c_incunabula.txt", "r")
     #infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
-    #infile = open("f_libraries_of_the_world.txt", "r")
+    infile = open("f_libraries_of_the_world.txt", "r")
 
     firstLine = infile.readline().split()
     numBooks = int(firstLine[0])
