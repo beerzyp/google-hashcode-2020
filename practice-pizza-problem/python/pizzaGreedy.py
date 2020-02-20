@@ -59,9 +59,8 @@ def main():
 
 def orderingSignUp(allLibraries):
     #sorting by longest signup period
-    sortedLibraries = sorted(allLibraries, key=itemgetter('signDays'))
-    for i in sortedLibraries:
-        print(i)
+    sortedLibraries = sorted(allLibraries, key=itemgetter('signDays'), reverse=True)
+
 
 
 if __name__ == '__main__':
