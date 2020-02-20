@@ -11,10 +11,21 @@ def score_lib(lib, scores):
         score += scores[book]
     return score
 
-def greedy_max_score(all_libraries):
-    lo,hi = sys.maxint,-sys.maxint-1
-    #for x in (item['the_key'] for item in dict_list):
-     #   lo,hi = min(x,lo),max(x,hi)
+def greedy_max_score(all_libraries, max_days):
+    sorted_libraries = sorted(all_libraries, key=itemgetter('score'))
+    i = 0
+    days = 0
+    flag = True
+    final_lib = []
+    while flag:
+        final_lib.append(sorted_libraries[i])
+        days += sorted_libraries[i]['signDays']
+        if days > max_days:
+            flag = False   
+        i += 1
+    print(final_lib)
+    return final_lib
+
 
 def main():
     #infile = open("a_example.txt", "r")
