@@ -1,4 +1,5 @@
 import operator
+import collections
 import copy
 import itertools
 import sys
@@ -44,17 +45,20 @@ def createOutputFile(allLibraries):
         file.write("\n")
 
 def main():
-    #infile = open("a_example.txt", "r")
+    infile = open("a_example.txt", "r")
     #infile = open("b_read_on.txt", "r")
-    infile = open("c_incunabula.txt", "r")
+    #infile = open("c_incunabula.txt", "r")
     #infile = open("d_tough_choices.txt", "r")
     #infile = open("e_so_many_books.txt", "r")
     #infile = open("f_libraries_of_the_world.txt", "r")
 
     firstLine = infile.readline().split()
     numBooks = int(firstLine[0])
+    print(numBooks)
     numLibs = int(firstLine[1])
+    print(numLibs)
     numDays = int(firstLine[2])
+    print(numDays)
     scores = infile.readline().split()
     scores = [int(i) for i in scores]
     allLibraries = []
@@ -67,12 +71,19 @@ def main():
         library['booksPerDay'] = int(firstLine[2])
         secondLine = infile.readline().split()
         secondLine = [int(i) for i in secondLine]
-        library['listBooks'] = secondLine
+        finalSortedBooks = sortBooksByScore(secondLine, scores)
+        library['listBooks'] = finalSortedBooks
         score = score_lib(library, scores)
         library['score'] = score
         allLibraries.append(library)
     sortedLibraries = orderingSignUp(allLibraries) # sorts by signUpDays and BooksPerDay
+    for i in sortedLibraries:
+        print(i)
 
+def sortBooksByScore(listOfBooks,scores):
+    books = {k: scores[v] for v, k in enumerate(listOfBooks)}
+    final = [key for key in sorted(books.keys(), reverse=True)]
+    return final
 
 def orderingSignUp(allLibraries):
     #sorting by longest signup period
